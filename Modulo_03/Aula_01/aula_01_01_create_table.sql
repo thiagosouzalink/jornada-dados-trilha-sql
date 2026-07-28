@@ -7,15 +7,6 @@ CREATE TABLE IF NOT EXISTS clients (
     saldo INTEGER NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS transactions (
-    id SERIAL PRIMARY KEY NOT NULL,
-    tipo CHAR(1) NOT NULL,
-    descricao VARCHAR(10) NOT NULL,
-    valor INTEGER NOT NULL,
-    cliente_id INTEGER NOT NULL,
-    realizada_em TIMESTAMP NOT NULL DEFAULT NOW()
-);
-
 -- Usando UUID
 DROP TABLE clients;
 
@@ -25,6 +16,16 @@ CREATE TABLE IF NOT EXISTS clients (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     limite INTEGER NOT NULL,
     saldo INTEGER NOT NULL
+);
+
+-- drop table transactions;
+CREATE TABLE IF NOT EXISTS transactions (
+    id SERIAL PRIMARY KEY NOT NULL,
+    tipo CHAR(1) NOT NULL,
+    descricao VARCHAR(50) NOT NULL,
+    valor INTEGER NOT NULL,
+    cliente_id UUID NOT NULL,
+    realizada_em TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
 
@@ -39,3 +40,4 @@ VALUES
 	
 
 SELECT * FROM clients;
+SELECT * FROM transactions;

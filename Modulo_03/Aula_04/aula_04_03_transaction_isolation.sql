@@ -1,0 +1,25 @@
+-- Aula 4 – Transações ACID
+
+SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;
+BEGIN;
+SELECT nome, count(nome) FROM exemplo
+GROUP by nome;
+SELECT * FROM exemplo;
+COMMIT;
+
+SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+BEGIN;
+SELECT * FROM exemplo;
+
+-- Configuração para Serializable
+SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+BEGIN;
+SELECT * FROM exemplo;
+
+-- Voltar pro T1
+INSERT INTO exemplo (nome) VALUES ('A');
+COMMIT;
+
+-- Voltar pro T2
+INSERT INTO exemplo (nome) VALUES ('A');
+COMMIT;
